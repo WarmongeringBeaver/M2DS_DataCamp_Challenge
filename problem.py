@@ -27,6 +27,7 @@ def get_cv(X, y):
 def _get_data(path, split):
     split_path = os.path.join(path, "data", split, "*.csv")
     data = pd.read_csv(split_path, encoding='iso-8859-1')
+    data = data_cleaning(data)
 
     X = data.drop(['Vaccine','Business2'], axis=1)
     Y = data[['Vaccine','Business2']].values
@@ -37,6 +38,10 @@ def get_train_data(path):
 
 def get_test_data(path):
     return _get_data(path, 'test')
+
+
+def data_cleaning(df):
+    return df
 
 
 
