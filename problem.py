@@ -40,9 +40,6 @@ def get_train_data(path):
 def get_test_data(path):
     return _get_data(path, 'test')
 
-def clean_data(df):
-    return data_cleaning(df)
-
 
 
 
