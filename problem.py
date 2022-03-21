@@ -3,6 +3,7 @@ import pandas as pd
 import rampwf as rw
 from itertools import combinations_with_replacement
 from sklearn.model_selection import ShuffleSplit
+from data_cleaning import data_cleaning 
 
 problem_title = 'Covid Vaccince Prediction'
 
