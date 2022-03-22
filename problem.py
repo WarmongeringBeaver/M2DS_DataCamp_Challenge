@@ -29,7 +29,7 @@ def _get_data(path, split):
     data = pd.read_csv(split_path, encoding='iso-8859-1')
 
     X = data.drop(['Vaccine','Business2'], axis=1)
-    Y = data[['Vaccine','Business2']].values
+    Y = data[['Vaccine','Business2']]
     return X, Y
 
 def get_train_data(path):
