@@ -104,5 +104,28 @@ def data_cleaning(df):
   df["within_country"] = df["within_country"].replace({1: "<20%", 2: "20-40%", 3: "40-60%", 4: "60-80%", 5:">80%", 6:"Refused"}).astype('category')
   df["world_wide"] = df["world_wide"].replace({1: "<$2 per day", 2: "\$2-\$8 per day", 3: "\$8-\$32 per day", 4: "$32+", 6:"Refused"}).astype('category')
   df["Age_group"] = df["Age_group"].replace({1: "18-24", 2: "25-54", 3: "55-64", 4: "65+"}).astype('category')
+  l = ["Completely disagree", "Somewhat disagree", "Neutral/no opinion", "Somewhat agree", "Completely agree"]
+  df['Business2'] = df['Business2'].replace(dict(enumerate(l, start=1))).astype("category")
+  df['Business2'] = df['Business2'].cat.set_categories(l, ordered=True)  # ordered=True!!
+  df['Vaccine'] = df['Vaccine'].replace(dict(enumerate(l, start=1))).astype("category")
+  df['Vaccine'] = df['Vaccine'].cat.set_categories(l, ordered=True)  # ordered=True!!
 
+  return df
+
+def fix_categorical_features_dtype(df):
+  df['Country'] = df['Country'].astype('category')
+  df['Gender'] = df['Gender'].astype('category')
+  if 'Language' in df.columns:  # (avoid error if dropped)
+      df['Language'] = df['Language'].astype('category')
+  if 'Region' in df.columns:  # (avoid error if dropped)
+      df['Region'] = df['Region'].astype('category')
+  df['Universal_edu'] = df['Universal_edu'].astype('category')
+  df["within_country"] = df["within_country"].astype('category')
+  df["world_wide"] = df["world_wide"].astype('category')
+  df["Age_group"] = df["Age_group"].astype('category')
+  l = ["Completely disagree", "Somewhat disagree", "Neutral/no opinion", "Somewhat agree", "Completely agree"]
+  df['Business2'] = df['Business2'].astype("category")
+  df['Business2'] = df['Business2'].cat.set_categories(l, ordered=True)  # ordered=True!!
+  df['Vaccine'] = df['Vaccine'].astype("category")
+  df['Vaccine'] = df['Vaccine'].cat.set_categories(l, ordered=True)  # ordered=True!!
   return df
