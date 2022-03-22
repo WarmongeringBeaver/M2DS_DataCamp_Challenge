@@ -9,6 +9,7 @@ from zlib import adler32
 from pathlib import Path
 from osfclient.api import OSF
 from osfclient.exceptions import UnauthorizedException
+import urllib.request
 
 LOCAL_DATA = Path(__file__).parent / "data"
 
@@ -17,7 +18,10 @@ CHALLENGE_NAME = 'covid_vaccine_challenge'
 # data_checksum to None
 RAMP_FOLDER_CONFIGURATION = {
     'public': dict(
-        code='rw9cu', file_name='data.csv',
+        code='rw9cu', 
+        file_name_1='data_1.csv', 
+        url = 'https://www.dropbox.com/s/wv6fvff69yo0rcl/covid-stringency-index.csv?dl=1',
+        file_name_2 = 'data_2.csv'
     ),
 }
 
@@ -52,21 +56,33 @@ def download_from_osf():
         store, data_config = get_connection_info()
 
         # Find the file to download from the OSF project
-        challenge_file = get_data_from_osf(store.folders)
+        challenge_file = get_data_from_osf(store.files)
 
         # Find the file to download from the OSF project
-        file_name = data_config['archive_name']
+        file_name_1 = data_config['file_name_1']
         print('Ok.')
 
         # Download the file in the data
-        FILE_PATH = LOCAL_DATA / file_name
+        FILE_PATH_1 = LOCAL_DATA / file_name_1
         print("Downloading the data...")
-        with open(FILE_PATH, 'wb') as f:
+        with open(FILE_PATH_1, 'wb') as f:
             challenge_file.write_to(f)
+        
+        string_data = get_stringency(data_config['url'])
+        file_name_2 = data_config['file_name_2']
+        FILE_PATH_2 = LOCAL_DATA / file_name_2
+        with open(FILE_PATH_2, 'wb') as f:
+            f.write(string_data)
     else:
         print(f'{LOCAL_DATA} directory is not empty. Please empty it or select'
               ' another destination for LOCAL_DATA if you wish to proceed')
 
+def get_stringency(url_):
+    url = url_
+    u = urllib.request.urlopen(url)
+    data = u.read()
+    u.close()
+    return data
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
