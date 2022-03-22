@@ -26,14 +26,15 @@ def get_cv(X, y):
 
 def _get_data(path, split):
     split_path = os.path.join(path, "data", split, "data.csv")
-    data = pd.read_csv(split_path, encoding='iso-8859-1')
+    data = pd.read_csv(split_path, encoding='iso-8859-1', index_col=0)  # XXX rmv index_col=0 if ever needed
+    data = data.reset_index(drop=True)  # if index_col=0 in read_csv above
 
     X = data.drop(['Vaccine','Business2'], axis=1)
     Y = data[['Vaccine','Business2']]
     return X, Y
 
 def get_train_data(path):
-    return _get_data(path, 'test')
+    return _get_data(path, 'train')
 
 def get_test_data(path):
     return _get_data(path, 'test')
