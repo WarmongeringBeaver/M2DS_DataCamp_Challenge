@@ -3,7 +3,6 @@ import pandas as pd
 import rampwf as rw
 from itertools import combinations_with_replacement
 from sklearn.model_selection import ShuffleSplit
-from data_cleaning import data_cleaning 
 
 problem_title = 'Covid Vaccince Prediction'
 
@@ -26,9 +25,8 @@ def get_cv(X, y):
     return cv.split(X, y)
 
 def _get_data(path, split):
-    split_path = os.path.join(path, "data", split, "*.csv")
+    split_path = os.path.join(path, "data", split, "data.csv")
     data = pd.read_csv(split_path, encoding='iso-8859-1')
-    data = data_cleaning(data)
 
     X = data.drop(['Vaccine','Business2'], axis=1)
     Y = data[['Vaccine','Business2']].values
