@@ -30,7 +30,7 @@ class BAS(BaseScoreType):
     minimum = 0.0
     maximum = float("inf")
 
-    def __init__(self, name="MAPE", precision=4):
+    def __init__(self, name="BAS", precision=4):
         self.name = name
         self.precision = precision
 
