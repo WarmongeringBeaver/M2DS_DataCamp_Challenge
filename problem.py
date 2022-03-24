@@ -5,7 +5,8 @@ import rampwf as rw
 from data_cleaning import fix_categorical_features_dtype
 from itertools import combinations_with_replacement
 from sklearn.model_selection import ShuffleSplit
-
+from rampwf.score_types.base import BaseScoreType
+from sklearn.metrics import balanced_accuracy_score
 
 split_factor = 0.2
 
@@ -23,7 +24,26 @@ _prediction_label_ = combinations_with_replacement(
 Predictions = rw.prediction_types.make_regression(label_names=_target_names)
 workflow = rw.workflows.Regressor()
 
-score_types = rw.score_types.Accuracy(name= 'acc')
+
+class BAS(BaseScoreType):
+    is_lower_the_better = True
+    minimum = 0.0
+    maximum = float("inf")
+
+    def __init__(self, name="MAPE", precision=4):
+        self.name = name
+        self.precision = precision
+
+    def __call__(self, y_true, y_pred):
+        BAS_1 = np.mean(y_true[0] == y_pred[0])
+        BAS_2 = np.mean(y_true[1] == y_pred[1])
+        return (BAS_1+BAS_2)/2
+
+
+
+score_types = [
+    BAS(name="BAS"),
+]
 
 def get_cv(X, y):
     cv = ShuffleSplit(n_splits=10, test_size=0.25, random_state=57)
