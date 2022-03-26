@@ -4,7 +4,7 @@ import xgboost as xgb
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, MinMaxScaler, LabelEncoder
 from sklearn.pipeline import Pipeline
-import numpy as np
+import numpy as np 
 
 
 class Regressor(BaseEstimator):
