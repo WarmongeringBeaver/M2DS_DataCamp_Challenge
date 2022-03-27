@@ -112,7 +112,21 @@ def data_cleaning(df):
 
   return df
 
-def fix_categorical_features_dtype(df):
+def fix_features_dtypes(df):
+  # numeric
+  df['trusthealth'] = df['trusthealth'].astype(int)
+  df['Age'] = df['Age'].astype(int)
+  df['sickwithCOVID'] = df['sickwithCOVID'].astype(int)
+  df['covidcases'] = df['covidcases'].astype(int)
+  df['coviddeaths'] = df['coviddeaths'].astype(int)
+  df['mortalityperm'] = df['mortalityperm'].astype(int)
+  df['trustngov'] = df['trustngov'].astype(float)
+  df['poptrusthealth'] = df['poptrusthealth'].astype(float)
+  df['stringency_index'] = df['stringency_index'].astype(float)
+  df['population'] = df['population'].astype(int)
+  df['case_rate'] = df['case_rate'].astype(float)
+  df['death_rate'] = df['death_rate'].astype(float)
+  # categorical
   df['Country'] = df['Country'].astype('category')
   df['Gender'] = df['Gender'].astype('category')
   if 'Language' in df.columns:  # (avoid error if dropped)

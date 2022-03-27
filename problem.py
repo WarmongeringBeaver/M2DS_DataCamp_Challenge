@@ -7,7 +7,6 @@ sys.path.append(file_dir)
 import pandas as pd
 import numpy as np
 import rampwf as rw
-from data_cleaning import fix_categorical_features_dtype
 from itertools import combinations_with_replacement
 from sklearn.model_selection import ShuffleSplit
 from rampwf.score_types.base import BaseScoreType
@@ -40,8 +39,8 @@ class BAS(BaseScoreType):
         self.precision = precision
 
     def __call__(self, y_true, y_pred):
-        BAS_1 = np.mean(y_true[0] == y_pred[0])
-        BAS_2 = np.mean(y_true[1] == y_pred[1])
+        BAS_1 = np.mean(y_true[:,0] == y_pred[:,0])
+        BAS_2 = np.mean(y_true[:,1] == y_pred[:,1])
         return (BAS_1+BAS_2)/2
 
 
