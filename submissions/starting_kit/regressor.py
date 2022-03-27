@@ -15,12 +15,9 @@ class Regressor(BaseEstimator):
         self.objective     = 'multi:softmax'
         self.use_label     = False
 
-        self.numeric_features=['trusthealth', 'sickwithCOVID', 'Age', 
-        'Language', 'mortalityperm', 'trustngov', 'poptrusthealth', 
-        'Region', 'stringency_index', 'case_rate', 'death_rate']
+        self.numeric_features=[1, 2, 3, 9, 12, 13, 14, 15, 16, 10, 11]
 
-        self.categorical_features = ['Country', 'Universal_edu', 
-        'Age_group', 'Gender','within_country', 'world_wide' ]
+        self.categorical_features = [0, 5, 4, 6, 7, 8]
 
 
         self.preprocessor_ = ColumnTransformer([
@@ -43,14 +40,14 @@ class Regressor(BaseEstimator):
         ])
         
     def fit(self, X, Y):
-        self.label_enc_vac.fit(Y['Vaccine'])
-        self.label_enc_bus.fit(Y['Business2'])
+        self.label_enc_vac.fit(Y[:,0])
+        self.label_enc_bus.fit(Y[:,1])
 
-        self.model_1.fit(X, self.label_enc_vac.transform(Y['Vaccine']))
-        self.model_2.fit(X, self.label_enc_bus.transform(Y['Business2']))
+        self.model_1.fit(X, self.label_enc_vac.transform(Y[:,0]))
+        self.model_2.fit(X, self.label_enc_bus.transform(Y[:,1]))
 
     def predict(self, X):
-        res_vac = self.model_1.predict(X)
-        res_bus = self.model_2.predict(X)
-        res = np.concatenate((res_vac, res_bus)).reshape(2, res_vac.shape[0])
+        res_vac = self.label_enc_vac.inverse_transform(self.model_1.predict(X))
+        res_bus = self.label_enc_bus.inverse_transform(self.model_2.predict(X))
+        res = np.concatenate((np.expand_dims(res_vac, axis=0),np.expand_dims(res_bus, axis=0))).T
         return res
