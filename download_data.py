@@ -31,7 +31,6 @@ RAMP_FOLDER_CONFIGURATION = {
 }
 
 def load_clean_data(fname):
-    fname = LOCAL_DATA / fname
     df = pd.read_csv(fname, encoding='iso-8859-1', na_values= ' ')
     df = data_cleaning(df)
     return df

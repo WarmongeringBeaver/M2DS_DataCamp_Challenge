@@ -1,4 +1,9 @@
 import os
+import sys
+
+file_dir = os.path.dirname(__file__)
+sys.path.append(file_dir)
+
 import pandas as pd
 import numpy as np
 import rampwf as rw
@@ -69,7 +74,7 @@ def _get_data(path, split='train'):
 
     X = data.drop(['Vaccine','Business2'], axis=1)
     Y = data[['Vaccine','Business2']]
-    return X, Y
+    return X.to_numpy(), Y.to_numpy()
 
 def get_train_data(path):
     return _get_data(path, 'train')
