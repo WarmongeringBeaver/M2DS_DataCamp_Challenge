@@ -11,9 +11,9 @@ class Regressor(BaseEstimator):
     def __init__(self):
         self.label_enc_bus = LabelEncoder()
         self.label_enc_vac = LabelEncoder()
-        self.n_estimator   = 100
         self.objective     = 'multi:softmax'
         self.use_label     = False
+        self.eval_metric   = 'mlogloss'
 
         self.numeric_features=[1, 2, 3, 9, 12, 13, 14, 15, 16, 18, 19]
 
@@ -27,14 +27,16 @@ class Regressor(BaseEstimator):
 
         self.model_1   = Pipeline([
             ("preprocessor", self.preprocessor_),
-            ("classifier", xgb.XGBClassifier(n_estimator = self.n_estimator,
+            ("classifier", xgb.XGBClassifier(
+            eval_metric=self.eval_metric,
             objective= self.objective,
             use_label_encoder=self.use_label))
         ])
 
         self.model_2   = Pipeline([
             ("preprocessor", self.preprocessor_),
-            ("classifier", xgb.XGBClassifier(n_estimator = self.n_estimator,
+            ("classifier", xgb.XGBClassifier(
+            eval_metric=self.eval_metric,
             objective= self.objective,
             use_label_encoder=self.use_label))
         ])
