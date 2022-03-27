@@ -138,8 +138,18 @@ def fix_features_dtypes(df):
   df["world_wide"] = df["world_wide"].astype('category')
   df["Age_group"] = df["Age_group"].astype('category')
   l = ["Completely disagree", "Somewhat disagree", "Neutral/no opinion", "Somewhat agree", "Completely agree"]
-  df['Business2'] = df['Business2'].astype("category")
+  df['Business2'] = df['Business2'].map({
+      1: "Completely disagree",
+      2: "Somewhat disagree",
+      3: "Neutral/no opinion",
+      4: "Somewhat agree",
+      5: "Completely agree"}).astype("category")
   df['Business2'] = df['Business2'].cat.set_categories(l, ordered=True)  # ordered=True!!
-  df['Vaccine'] = df['Vaccine'].astype("category")
+  df['Vaccine'] = df['Vaccine'].map({
+      1: "Completely disagree",
+      2: "Somewhat disagree",
+      3: "Neutral/no opinion",
+      4: "Somewhat agree",
+      5: "Completely agree"}).astype("category")
   df['Vaccine'] = df['Vaccine'].cat.set_categories(l, ordered=True)  # ordered=True!!
   return df

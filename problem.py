@@ -11,6 +11,7 @@ from itertools import combinations_with_replacement
 from sklearn.model_selection import ShuffleSplit
 from rampwf.score_types.base import BaseScoreType
 from sklearn.metrics import balanced_accuracy_score
+from sklearn.preprocessing import LabelEncoder
 
 split_factor = 0.2
 
@@ -70,10 +71,16 @@ def _get_data(path, split='train'):
         idx = idx[train_split:]
         data = data.iloc[idx].reset_index(drop=True)
 
+    label_enc_vac = LabelEncoder()
+    label_enc_bus = LabelEncoder()
 
     X = data.drop(['Vaccine','Business2'], axis=1)
     Y = data[['Vaccine','Business2']]
-    return X.to_numpy(), Y.to_numpy()
+    label_enc_vac.fit(Y.to_numpy()[:,0])
+    label_enc_bus.fit(Y.to_numpy()[:,1])
+    Y = np.concatenate([label_enc_vac.transform(Y.to_numpy()[:,0]).reshape(-1,1),\
+     label_enc_bus.transform(Y.to_numpy()[:,1]).reshape(-1,1)], axis=1)
+    return X.to_numpy(), Y
 
 def get_train_data(path):
     return _get_data(path, 'train')
