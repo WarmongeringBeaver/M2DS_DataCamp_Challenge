@@ -40,8 +40,8 @@ class BAS(BaseScoreType):
         self.precision = precision
 
     def __call__(self, y_true, y_pred):
-        BAS_1 = np.mean(y_true[:,0] == y_pred[:,0])
-        BAS_2 = np.mean(y_true[:,1] == y_pred[:,1])
+        BAS_1 = balanced_accuracy_score(y_true[:,0].astype(int), y_pred[:,0].astype(int))
+        BAS_2 = balanced_accuracy_score(y_true[:,1].astype(int), y_pred[:,1].astype(int))
         return (BAS_1+BAS_2)/2
 
 
