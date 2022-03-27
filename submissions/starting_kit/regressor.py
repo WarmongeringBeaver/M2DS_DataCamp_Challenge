@@ -15,7 +15,7 @@ class Regressor(BaseEstimator):
         self.objective     = 'multi:softmax'
         self.use_label     = False
 
-        self.numeric_features=[1, 2, 3, 9, 12, 13, 14, 15, 16, 10, 11]
+        self.numeric_features=[1, 2, 3, 9, 12, 13, 14, 15, 16, 18, 19]
 
         self.categorical_features = [0, 5, 4, 6, 7, 8]
 
