@@ -1,22 +1,22 @@
-# Predicting the Potential Acceptance of a COVID-19 Vaccine on Social Data
+# Classification of areas prone to forest fires
 
-Authors : Oumaima Marbouh, Yasmine Guemouria, Daniel Quintão de Moraes, Mehdy Bennani, Júlia Togashi, Yousra Leouafi
+Authors : Aimi Okabayashi, Thomas Boyer, David Dahan, Pierre-Aurélien Stahl, Pierre Personnat, Martial Gil
 
 This challenge was done as a project for the Master 2 Data Science (2021/2022), DATACAMP course
 
 ## Introduction
 
-The coronavirus pandemic, is an ongoing pandemic of a respiratory disease caused by the severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2). On March 11, 2020, the World Health Organization (WHO) classified the outbreak as a Pandemic. In phase III development studies, several vaccines against COVID-19 have demonstrated efficacy of up to 95% in preventing symptomatic infections of the disease. As of March 2021, 12 vaccines have been authorized by at least one national regulatory authority for public use.
+On August 8, with 187,114 fires, the record number of daily fires ever recorded worldwide was set. No region of the world has been spared.
 
-As we know, **acceptance of the vaccine** is not the same for everyone and varies according to various social factors. Better understanding the characteristics that lead someone to be unwilling to get the vaccine is a public health necessity. Moreover, the ability to individually predict an individual's likelihood to be vaccinated can be applied in various scenarios, such as for government-directed advertising or document control at borders between countries.
+Forest fires in the world have doubled in 20 years. Global warming as well as drought are hitting particularly hard in the United States where these disasters are growing at an exponential rate with in 2022, about 49,700 fires that occurred in the country, with a total of about 3 million hectares burned. By comparison, more than 785,000 hectares went up in smoke in Europe in 2022 and that is nearly 50 times the area burned in France in 2022 after a devastating summer of fires, although the USA represents in surface "only" about 18 times France.
 
-This project aims at constructing a machine learning model capable at predicting the answer to two questions: 
-1.  **If a COVID-19 vaccine is proven safe and effective and is available to me, I will take it**
-2.  **I would accept a vaccine if it were recommended by my employer and was approved safe and effective by the government**. 
+Forest fires now ravage about 3 million hectares more each year than in 2001, an area equivalent to that of Belgium. As a result, the loss of forest cover due to fires is increasing by about 4% per year.
 
-Each question has 5 possible answers, ranging from "completely disagree" to "completely agree", as further described below.
+Today a UN publication calls on governments to adopt a new "Fire Ready Formula", with two-thirds of spending devoted to planning, prevention, preparedness and recovery, and the remaining third to response. Today, direct responses to wildfires typically receive more than half of related spending, while planning receives less than one percent, according to the UN's environmental program.
 
-Thus, we have a multitarget **and** multiclass classification problem.
+With this in mind, our study will focus on building a model that predicts the probability that a geographic location in the US will be a fire outbreak in order to simulate potential fire paths and assist in the prevention and control of these fires. In this regard, we have a dataset that contains about 20 features for each point of interest.
+
+This project aims at constructing a machine learning model capable at **classifying point of areas prone to forest fires**. 
 
 ## Getting started
 
