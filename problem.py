@@ -7,6 +7,7 @@ import rampwf as rw
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import StratifiedShuffleSplit, train_test_split
 from sklearn.preprocessing import OneHotEncoder
+from prepare_data import prepare_data
 
 problem_title = "Fire prediction"
 
@@ -61,8 +62,8 @@ def _get_data_utils(path, split="train"):
 def _get_data(path):
     dataframe_path = Path(path, "data", "data.csv")
 
-    data = pd.read_csv(dataframe_path, sep=";")
-    return data
+    X = pd.read_csv(dataframe_path, sep=";")
+    return prepare_data(X)
 
 
 def get_train_data(path):
