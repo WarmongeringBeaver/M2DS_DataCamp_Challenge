@@ -7,7 +7,6 @@ import rampwf as rw
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import StratifiedShuffleSplit, train_test_split
 from sklearn.preprocessing import OneHotEncoder
-from prepare_data import prepare_data
 
 problem_title = "Fire prediction"
 
