@@ -1,6 +1,6 @@
 # Classification of areas prone to forest fires
 
-Authors : Aimi Okabayashi, Thomas Boyer, David Dahan, Pierre-Aurélien Stahl, Pierre Personnat, Martial Gil
+*Authors : Aimi Okabayashi, Thomas Boyer, David Dahan, Pierre-Aurélien Stahl, Pierre Personnat, Martial Gil*
 
 This challenge was done as a project for the Master 2 Data Science (2021/2022), DATACAMP course
 
