@@ -14,7 +14,9 @@ problem_title = "Fire prediction"
 _target_column_name = "fire"
 _prediction_label_names = [0, 1]
 
-Predictions = rw.prediction_types.make_multiclass(label_names=_prediction_label_names)
+Predictions = rw.prediction_types.make_multiclass(
+    label_names=_prediction_label_names
+    )
 workflow = rw.workflows.Estimator()
 
 file_dir = os.path.dirname(__file__)
@@ -33,20 +35,48 @@ class FBetaScore(ClassifierBaseScoreType):
     maximum = 1.0
     worse = 0.0
 
-    def __init__(self, precision=2, beta=2, name=None):
+    def __init__(self, name=None, precision=2, beta=2):
         self.precision = precision
         self.beta = beta
         if name is None:
             self.name = f"F_{beta}_score"
         else:
-            name = self.name
+            self.name = name
 
     def __call__(self, y_true, y_pred):
-        score = fbeta_score(y_true, y_pred, beta=self.beta)
+        score = fbeta_score(y_true, y_pred, beta=self.beta, average='binary')
         return score
 
 
-score_types = [rw.score_types.BalancedAccuracy(), FBetaScore()]
+class FBetaMacroScore(ClassifierBaseScoreType):
+    """
+    Wrapper around scikit-learn's F-β score.
+
+    Default is β = 2, weighting sensitivity higher than precision.
+    """
+
+    is_lower_the_better = False
+    minimum = 0.0
+    maximum = 1.0
+    worse = 0.0
+
+    def __init__(self, name=None, precision=2, beta=2):
+        self.precision = precision
+        self.beta = beta
+        if name is None:
+            self.name = f"F_{beta}_score"
+        else:
+            self.name = name
+
+    def __call__(self, y_true, y_pred):
+        score = fbeta_score(y_true, y_pred, beta=self.beta, average='macro')
+        return score
+
+
+score_types = [rw.score_types.BalancedAccuracy(name="BAS"),
+               FBetaMacroScore(name="Macro_F_beta=2"),
+               FBetaScore(name="F_beta=2_1"),
+               FBetaScore(name="F1_class_1", beta=1)]
 
 
 def get_cv(X, y):
@@ -67,7 +97,9 @@ def _get_data_utils(path, split="train"):
     X = data_preprocessed.drop(columns=[_target_column_name])
 
     el = LabelEncoder()
-    X.loc[:, "vegetation_class"] = el.fit_transform(X.loc[:, "vegetation_class"])
+    X.loc[:, "vegetation_class"] = el.fit_transform(
+                                X.loc[:, "vegetation_class"]
+                                )
 
     y = data_preprocessed[_target_column_name]
     X_train, X_test, y_train, y_test = train_test_split(
