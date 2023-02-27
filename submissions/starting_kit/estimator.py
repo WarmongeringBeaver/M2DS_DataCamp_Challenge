@@ -23,6 +23,7 @@ def get_estimator():
         "mean_wind_angle",
     ]
 
+    # No need to scale numerical variables for this classifier
     numerical_pipeline = make_pipeline(
         SimpleImputer(strategy="constant", fill_value=-1)
     )
