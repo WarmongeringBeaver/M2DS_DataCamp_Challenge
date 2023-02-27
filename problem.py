@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pandas as pd
 import rampwf as rw
+from rampwf.score_types import ClassifierBaseScoreType
+from sklearn.metrics import fbeta_score
 from sklearn.model_selection import StratifiedShuffleSplit, train_test_split
 from sklearn.preprocessing import LabelEncoder
 
@@ -18,9 +20,33 @@ workflow = rw.workflows.Estimator()
 file_dir = os.path.dirname(__file__)
 sys.path.append(file_dir)
 
-score_types = [
-    rw.score_types.BalancedAccuracy(name="bacc"),
-]
+
+class FBetaScore(ClassifierBaseScoreType):
+    """
+    Wrapper around scikit-learn's F-β score.
+
+    Default is β = 2, weighting sensitivity higher than precision.
+    """
+
+    is_lower_the_better = False
+    minimum = 0.0
+    maximum = 1.0
+    worse = 0.0
+
+    def __init__(self, precision=2, beta=2, name=None):
+        self.precision = precision
+        self.beta = beta
+        if name is None:
+            self.name = f"F_{beta}_score"
+        else:
+            name = self.name
+
+    def __call__(self, y_true, y_pred):
+        score = fbeta_score(y_true, y_pred, beta=self.beta)
+        return score
+
+
+score_types = [rw.score_types.BalancedAccuracy(), FBetaScore()]
 
 
 def get_cv(X, y):
