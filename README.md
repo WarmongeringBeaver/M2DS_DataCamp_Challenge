@@ -35,7 +35,7 @@ usage.
 
 ### Challenge description
 
-Get started with the [dedicated notebook](FINAL_RAMP_chalange.ipynb)
+Get started with the [dedicated notebook](fire_starting_kit.ipynb)
 
 
 ### Test a submission
