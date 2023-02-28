@@ -17,7 +17,7 @@ CHALLENGE_NAME = "fire"
 # data_checksum to None
 RAMP_FOLDER_CONFIGURATION = {
     "public": dict(
-        code="qryue",
+        code="qzrpk",
         archive_name="data.tar.gz",
     ),
 }
